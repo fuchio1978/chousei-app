@@ -3,9 +3,13 @@ import { ja } from 'date-fns/locale';
 import { Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 
-export function OutputPanel({ selectedSlots }) {
+export function OutputPanel({ selectedSlots, teacher }) {
     const [copiedLine, setCopiedLine] = useState(false);
     const [copiedAdmin, setCopiedAdmin] = useState(false);
+
+    const isChigusa = teacher === 'chigusa';
+    const themeColor = isChigusa ? '#E91E63' : 'var(--color-primary)';
+    // const themeTitle = isChigusa ? 'ちぐさ先生' : 'てつ先生'; // Not used in title currently but useful variable
 
     // --- LINE Logic ---
     const getCircleNumber = (num) => {
@@ -87,11 +91,14 @@ export function OutputPanel({ selectedSlots }) {
 
                     {/* Section 2: Admin Format */}
                     <div>
-                        <div style={{ fontSize: '0.9rem', fontWeight: 600, marginBottom: '8px', color: 'var(--color-secondary)' }}>予約管理サイト用</div>
-                        <div style={{ background: '#f0fdf4', border: '1px solid #dcfce7', borderRadius: '8px', padding: '12px', marginBottom: '8px', fontFamily: 'monospace', minHeight: '60px', fontSize: '0.9rem', whiteSpace: 'pre-wrap' }}>
+                        <div style={{ fontSize: '0.9rem', fontWeight: 600, marginBottom: '8px', color: themeColor }}>予約管理サイト用</div>
+                        <div style={{ background: isChigusa ? '#fce4ec' : '#f0fdf4', border: `1px solid ${isChigusa ? '#f8bbd0' : '#dcfce7'}`, borderRadius: '8px', padding: '12px', marginBottom: '8px', fontFamily: 'monospace', minHeight: '60px', fontSize: '0.9rem', whiteSpace: 'pre-wrap' }}>
                             {adminText}
                         </div>
-                        <CopyButton onClick={handleCopyAdmin} copied={copiedAdmin} label="管理用テキストをコピー" color="var(--color-secondary)" />
+                        <CopyButton onClick={handleCopyAdmin} copied={copiedAdmin} label="管理用テキストをコピー" color={themeColor} />
+                        <div style={{ fontSize: '0.75rem', color: '#999', marginTop: '8px' }}>
+                            ※コピー後、PCの場合は拡張機能を使って自動入力できます
+                        </div>
                     </div>
                 </div>
             )}

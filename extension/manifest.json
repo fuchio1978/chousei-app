@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "四柱推命講座 日程調整 自動入力",
+    "version": "1.0",
+    "description": "調整アプリでコピーしたデータを、管理サイトの入力欄に自動貼り付けします。",
+    "permissions": [
+        "clipboardRead"
+    ],
+    "host_permissions": [
+        "https://www.fuchilabo.com/*"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.fuchilabo.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    }
+}
