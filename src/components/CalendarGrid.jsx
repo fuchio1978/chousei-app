@@ -32,44 +32,46 @@ export function CalendarGrid({ baseDate, selectedSlots, onSlotClick, onDateChang
                 </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '50px repeat(7, 1fr)', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden' }}>
-                {/* Header Row */}
-                <div style={headerCellStyle}></div> {/* Empty top-left */}
-                {days.map(day => (
-                    <div key={day.toString()} style={{ ...headerCellStyle, color: getDayColor(day) }}>
-                        <div style={{ fontSize: '0.8rem' }}>{format(day, 'M/d', { locale: ja })}</div>
-                        <div style={{ fontSize: '1rem', fontWeight: 700 }}>{format(day, '(EE)', { locale: ja })}</div>
-                    </div>
-                ))}
-
-                {/* Time Grid */}
-                {hours.map(hour => (
-                    <>
-                        {/* Time Label */}
-                        <div key={`time-${hour}`} style={timeLabelStyle}>
-                            {hour}:00
+            <div style={{ overflowX: 'auto', paddingBottom: '8px' }}>
+                <div style={{ minWidth: '600px', display: 'grid', gridTemplateColumns: '50px repeat(7, 1fr)', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden' }}>
+                    {/* Header Row */}
+                    <div style={headerCellStyle}></div> {/* Empty top-left */}
+                    {days.map(day => (
+                        <div key={day.toString()} style={{ ...headerCellStyle, color: getDayColor(day) }}>
+                            <div style={{ fontSize: '0.8rem' }}>{format(day, 'M/d', { locale: ja })}</div>
+                            <div style={{ fontSize: '1rem', fontWeight: 700 }}>{format(day, '(EE)', { locale: ja })}</div>
                         </div>
+                    ))}
 
-                        {/* Day Cells for this Hour */}
-                        {days.map(day => {
-                            const selected = isSelected(day, hour);
-                            return (
-                                <div
-                                    key={`${day}-${hour}`}
-                                    onClick={() => onSlotClick(day, hour)}
-                                    style={{
-                                        ...cellStyle,
-                                        backgroundColor: selected ? 'var(--color-primary-light)' : 'var(--color-surface)',
-                                        cursor: 'pointer',
-                                        transition: 'background-color 0.15s ease'
-                                    }}
-                                >
-                                    {selected && <div style={checkMarkStyle}>✓</div>}
-                                </div>
-                            );
-                        })}
-                    </>
-                ))}
+                    {/* Time Grid */}
+                    {hours.map(hour => (
+                        <>
+                            {/* Time Label */}
+                            <div key={`time-${hour}`} style={timeLabelStyle}>
+                                {hour}:00
+                            </div>
+
+                            {/* Day Cells for this Hour */}
+                            {days.map(day => {
+                                const selected = isSelected(day, hour);
+                                return (
+                                    <div
+                                        key={`${day}-${hour}`}
+                                        onClick={() => onSlotClick(day, hour)}
+                                        style={{
+                                            ...cellStyle,
+                                            backgroundColor: selected ? 'var(--color-primary-light)' : 'var(--color-surface)',
+                                            cursor: 'pointer',
+                                            transition: 'background-color 0.15s ease'
+                                        }}
+                                    >
+                                        {selected && <div style={checkMarkStyle}>✓</div>}
+                                    </div>
+                                );
+                            })}
+                        </>
+                    ))}
+                </div>
             </div>
         </div>
     );
