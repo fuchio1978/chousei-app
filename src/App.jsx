@@ -18,14 +18,21 @@ function App() {
     const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
-        // Convert timestamp strings back to Date objects if needed, 
-        // but simpler to store as ISO strings or objects.
-        // Let's assume we store array of { id, date: timestamp/ISO, hour }
-        // For simplicity in JSON, let's store dates as ISO strings
-        const loadedSlots = (data.slots || []).map(s => ({
-          ...s,
-          date: new Date(s.date) // hydrate Date object
-        }));
+        // Convert stored Firestore values back to JS Date objects.
+        // Firestore typically returns Timestamp objects for Date fields,
+        // but we may also encounter ISO strings depending on how data was written.
+        const loadedSlots = (data.slots || []).map(s => {
+          const rawDate = s.date;
+          const hydratedDate = rawDate && typeof rawDate.toDate === 'function'
+            ? rawDate.toDate() // Firestore Timestamp
+            : new Date(rawDate); // ISO string or other serialised form
+
+          return {
+            ...s,
+            date: hydratedDate,
+          };
+        });
+
         setSelectedSlots(loadedSlots);
       } else {
         setSelectedSlots([]); // No doc yet
