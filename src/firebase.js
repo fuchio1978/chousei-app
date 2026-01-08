@@ -1,15 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
-// TODO: Replace with your actual Firebase project configuration
-// You can copy this from the Firebase Console (Project Settings > General > Your apps)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDXv7YS5OPeDSBcBDIRHSiV6EcdzueweEQ",
+    authDomain: "chousei-app-e8fc8.firebaseapp.com",
+    projectId: "chousei-app-e8fc8",
+    storageBucket: "chousei-app-e8fc8.firebasestorage.app",
+    messagingSenderId: "418691796814",
+    appId: "1:418691796814:web:b58803c5f141d535c0181f"
 };
 
 const app = initializeApp(firebaseConfig);
